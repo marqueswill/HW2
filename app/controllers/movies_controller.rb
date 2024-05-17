@@ -1,7 +1,18 @@
 # This file is app/controllers/movies_controller.rb
 class MoviesController < ApplicationController
   def index
-    @movies = Movie.all
+
+    @sort_column = params[:sort_by]
+    case @sort_column
+    when "title"
+      @movies = Movie.order(:title)
+    when "date"
+      @movies = Movie.order(:date)
+    when "rating"
+      @movies = Movie.order(:rating)
+    else
+      @movies = Movie.all
+    end
   end
 
   def show
@@ -21,7 +32,7 @@ class MoviesController < ApplicationController
   end
 
   def movie_params
-    params.require(:movie).permit(:title,:rating,:description,:release_date)
+    params.require(:movie).permit(:title, :rating, :description, :release_date)
   end
 
   def edit

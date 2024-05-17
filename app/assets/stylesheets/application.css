@@ -78,3 +78,8 @@ color: maroon;
 table#movies th.hilite{
  background-color: yellow;
 }
+
+.hilite {
+  background-color: blue;
+  font-weight: bold;
+}
