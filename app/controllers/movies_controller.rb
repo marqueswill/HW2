@@ -6,11 +6,12 @@ class MoviesController < ApplicationController
 
     if params[:sort_by] == session[:sort_by]
       @sort_column = {}
+      redirect_to '/'
     else
       @sort_column = params[:sort_by] || session[:sort_by]
     end
 
-    session[:ratings] = @selected_ratings || @all_ratings
+    session[:ratings] = @selected_ratings
     session[:sort_by] = @sort_column
 
     @movies = Movie.where(rating: @selected_ratings)
