@@ -10,8 +10,8 @@ class MoviesController < ApplicationController
       @sort_column = params[:sort_by] || session[:sort_by]
     end
 
-    session[:ratings] = @selected_ratings if @selected_ratings
-    session[:sort_by] = @sort_column if @sort_column
+    session[:ratings] = @selected_ratings || @all_ratings
+    session[:sort_by] = @sort_column
 
     @movies = Movie.where(rating: @selected_ratings)
     @movies = @movies.order(@sort_column) if @sort_column
