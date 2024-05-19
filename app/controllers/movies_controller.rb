@@ -6,7 +6,7 @@ class MoviesController < ApplicationController
 
     if params[:sort_by] == session[:sort_by]
       @sort_column = {}
-      redirect_to '/'
+      redirect_to '/movies'
     else
       @sort_column = params[:sort_by] || session[:sort_by]
     end
