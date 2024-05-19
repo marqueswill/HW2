@@ -1,19 +1,20 @@
 # This file is app/controllers/movies_controller.rb
 class MoviesController < ApplicationController
   def index
-    #ambos nao funcionam juntos pq o sort_by é um link, não um filtro (checkbox)
-    #o sort teria que ser aplicado aos filmes do ultimo retorno
     @all_ratings = Movie.all_ratings
-    @selected_ratings = params[:ratings]&.keys || @all_ratings
-    @sort_column = params[:sort_by]
-    if params[:ratings]
-      @movies = Movie.where(rating: @selected_ratings)
-      if @sort_column
-        @movies = @movies.order(@sort_column)
-      end
+    @selected_ratings = params[:ratings]&.keys || session[:ratings] || @all_ratings
+
+    if params[:sort_by] == session[:sort_by]
+      @sort_column = {}
     else
-      @movies = Movie.all
+      @sort_column = params[:sort_by] || session[:sort_by]
     end
+
+    session[:ratings] = @selected_ratings if @selected_ratings
+    session[:sort_by] = @sort_column if @sort_column
+
+    @movies = Movie.where(rating: @selected_ratings)
+    @movies = @movies.order(@sort_column) if @sort_column
   end
 
   def show
