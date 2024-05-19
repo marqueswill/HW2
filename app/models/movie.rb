@@ -6,6 +6,7 @@ class Movie < ActiveRecord::Base
   def self.all_ratings
      %w(G PG PG-13 NC-17 R)
   end
+  
 end
 # starwars = Movie.create!(:title => 'Star Wars',
 # 	  :release_date => '25/4/1977', :rating => 'PG')
